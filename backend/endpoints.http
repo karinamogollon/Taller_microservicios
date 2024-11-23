@@ -1,0 +1,65 @@
+### Obtener lista de estudiantes
+GET http://localhost:8000/api/estudiantes
+Content-Type: application/json
+### Crear un nuevo estudiante
+POST http://localhost:8000/api/estudiantes
+Content-Type: application/json
+
+{
+    "cod": "6291",
+    "nombres": "Dana Albarracin",
+    "email": "dana.albarracin@test.com"
+}
+
+### Actualizar estudiante existente
+PUT http://localhost:8000/api/estudiantes/1234
+Content-Type: application/json
+
+{
+    "cod": "9798",
+    "nombres": "Karina Mogollon",
+    "email": "karina.mogollon@test.com"
+}
+
+### Eliminar un estudiante
+DELETE http://localhost:8000/api/estudiantes/5891
+Content-Type: application/json
+
+### Filtrar estudiantes
+GET http://localhost:8000/api/estudiantes/filtros?codigo=5678&nombre=Anita&email=anita@test.com&estado=Aprobado&nota_min=3.0&nota_max=4.0&sin_notas=false
+Content-Type: application/json
+
+
+### Ver notas de un estudiante
+GET http://localhost:8000/api/estudiantes/1234/notas
+Content-Type: application/json
+
+### Registrar nota para un estudiante
+POST http://localhost:8000/api/estudiantes/6291/notas
+Content-Type: application/json
+
+{
+  "actividad": "Examen Parcial",
+  "nota": 3.5
+}
+
+### Actualizar nota para un estudiante
+PUT http://localhost:8000/api/estudiantes/1234/notas/2
+Content-Type: application/json
+
+{
+  "actividad": "Examen Final",
+  "nota": 3.7
+}
+
+### Eliminar nota de un estudiante
+DELETE http://localhost:8000/api/estudiantes/1234/notas/1
+Content-Type: application/json
+
+### Filtrar notas de un estudiante
+GET http://localhost:8000/api/estudiantes/1234/notas/filtro?actividad=parcial&rango=3.0-4.0
+Content-Type: application/json
+
+### Resumen de notas de un estudiante
+GET http://localhost:8000/api/estudiantes/1234/notas/resumen
+Content-Type: application/json
