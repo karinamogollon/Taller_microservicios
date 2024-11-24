@@ -25,15 +25,11 @@
         <button type="submit">Filtrar</button>
     </form>
 
-    <!-- Resumen -->
     <div>
-        <p id="resumen">Resumen de Estudiantes:</p>
-        <ul>
-            <li>Aprobados: <span id="aprobadosCount">0</span></li>
-            <li>Reprobados: <span id="reprobadosCount">0</span></li>
-            <li>Sin Notas: <span id="sinNotasCount">0</span></li>
-        </ul>
-    </div>
+    <p>Aprobados (nota >= 3): <span id="aprobados">0</span></p>
+    <p>Reprobados (nota < 3): <span id="reprobados">0</span></p>
+</div>
+<button id="btnResumen">Obtener Resumen</button>
 
     <!-- Tabla de Estudiantes -->
     <table id="tablaEstudiantes">
@@ -104,6 +100,16 @@
         <button type="submit">Modificar Nota</button>
     </form>
 
+    <!-- Filtro de notas -->
+<input type="text" id="filtroActividad" placeholder="Filtrar por actividad">
+<input type="number" id="filtroNotaMin" placeholder="Nota mínima" min="0" max="5">
+<input type="number" id="filtroNotaMax" placeholder="Nota máxima" min="0" max="5">
+<button id="btnFiltrar">Filtrar Notas</button>
+
+<!-- Contenedor donde se mostrarán las notas filtradas -->
+<div id="notas"></div>
+
+    
     <script src="script.js"></script>
 </body>
 </html>

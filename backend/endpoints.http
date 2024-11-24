@@ -53,13 +53,17 @@ Content-Type: application/json
 }
 
 ### Eliminar nota de un estudiante
-DELETE http://localhost:8000/api/estudiantes/1234/notas/1
+DELETE http://localhost:8000/api/estudiantes/1234/notas/
 Content-Type: application/json
 
 ### Filtrar notas de un estudiante
-GET http://localhost:8000/api/estudiantes/1234/notas/filtro?actividad=parcial&rango=3.0-4.0
+GET http://localhost:8000/api/estudiantes/1234/notas/filtro?actividad=prueba&rango=3.0-4.0
 Content-Type: application/json
 
 ### Resumen de notas de un estudiante
 GET http://localhost:8000/api/estudiantes/1234/notas/resumen
+Content-Type: application/json
+
+### Resumen de notas 
+GET http://localhost:8000/api/resumenEstudiantes
 Content-Type: application/json

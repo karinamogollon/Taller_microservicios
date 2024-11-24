@@ -302,7 +302,134 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         }
     }
+    document.getElementById('btnFiltrar').addEventListener('click', function () {
+        const codEstudiante = detalleCodigo.innerText;
+        const actividad = document.getElementById('filtroActividad').value;
+        const notaMin = document.getElementById('filtroNotaMin').value;
+        const notaMax = document.getElementById('filtroNotaMax').value;
     
+        // Construir rango de notas
+        let rango = '';
+        if (notaMin && notaMax) {
+            rango = `${notaMin}-${notaMax}`;
+        } else if (notaMin) {
+            rango = `${notaMin}-5`; // Por defecto máximo 5
+        } else if (notaMax) {
+            rango = `0-${notaMax}`; // Por defecto mínimo 0
+        }
+    
+        fetch(`http://localhost:8000/api/estudiantes/${codEstudiante}/notas/filtro?actividad=${actividad}&rango=${rango}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.msg) {
+                    alert(data.msg);
+                } else {
+                    mostrarNotasFiltradas(data); // Mostrar las notas filtradas
+                }
+            })
+            .catch(error => {
+                console.error('Error al realizar la búsqueda:', error);
+                alert('Hubo un error en la búsqueda.');
+            });
+    });
+    
+    function mostrarNotasFiltradas(notas) {
+        const contenedorNotas = document.getElementById('notas');
+        contenedorNotas.innerHTML = ''; // Limpiar el contenedor
+    
+        if (notas.length === 0) {
+            contenedorNotas.innerHTML = '<p>No se encontraron notas.</p>';
+            return;
+        }
+    
+        notas.forEach(nota => {
+            const notaElement = document.createElement('div');
+            notaElement.classList.add('nota-item');
+            notaElement.innerHTML = `
+                <p>Actividad: ${nota.actividad}</p>
+                <p>Nota: ${nota.nota}</p>
+            `;
+            contenedorNotas.appendChild(notaElement);
+        });
+    }
+    document.getElementById('btnResumen').addEventListener('click', function () {
+        fetch('http://localhost:8000/api/resumenEstudiantes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.mayoresIguales3 !== undefined && data.menores3 !== undefined) {
+                    // Actualizar el DOM para mostrar los resultados
+                    document.getElementById('aprobados').innerText = data.mayoresIguales3;
+                    document.getElementById('reprobados').innerText = data.menores3;
+                } else {
+                    alert('Error al obtener el resumen.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener el resumen:', error);
+                alert('Hubo un error en la consulta del resumen.');
+            });
+    });
+    
+    document.getElementById('btnFiltrar').addEventListener('click', function () {
+        const codEstudiante = detalleCodigo.innerText;  // Código del estudiante
+        const actividad = document.getElementById('filtroActividad').value;
+        const notaMin = document.getElementById('filtroNotaMin').value;
+        const notaMax = document.getElementById('filtroNotaMax').value;
+        
+        // Formatear el rango de notas
+        const rango = `${notaMin}-${notaMax}`;
+        
+        // Hacer la solicitud al backend
+        fetch(`http://localhost:8000/api/estudiantes/${codEstudiante}/notas/filtro?actividad=${actividad}&rango=${rango}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())  // Procesar la respuesta JSON
+        .then(data => {
+            if (data.data && data.data.length > 0) {
+                mostrarNotasFiltradas(data.data);  // Mostrar las notas filtradas
+            } else {
+                alert('No se encontraron notas con los filtros aplicados.');
+            }
+        })
+        .catch(error => {
+            console.error('Error al realizar la búsqueda:', error);
+            alert('Hubo un error en la búsqueda.');
+        });
+    });
+    
+    // Función para mostrar las notas filtradas en el frontend
+    function mostrarNotasFiltradas(notas) {
+        const contenedorNotas = document.getElementById('notas');
+        contenedorNotas.innerHTML = '';  // Limpiar el contenedor
+        
+        if (notas.length === 0) {
+            contenedorNotas.innerHTML = '<p>No se encontraron notas.</p>';
+            return;
+        }
+        
+        notas.forEach(nota => {
+            const notaElement = document.createElement('div');
+            notaElement.classList.add('nota-item');
+            notaElement.innerHTML = `
+                <p>Actividad: ${nota.actividad}</p>
+                <p>Nota: ${nota.nota}</p>
+            `;
+            contenedorNotas.appendChild(notaElement);  // Agregar la nota al contenedor
+        });
+    }
     
     obtenerEstudiantes();
 });
