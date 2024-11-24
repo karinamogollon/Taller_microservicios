@@ -53,7 +53,7 @@ Content-Type: application/json
 }
 
 ### Eliminar nota de un estudiante
-DELETE http://localhost:8000/api/estudiantes/1234/notas/
+DELETE http://localhost:8000/api/estudiantes/1234/notas/2
 Content-Type: application/json
 
 ### Filtrar notas de un estudiante
