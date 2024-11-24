@@ -4,72 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
-    <title>Estudiantes</title>
+    <title>Gestión de Estudiantes</title>
 </head>
 <body>
-    <h2>Registrar Estudiante</h2>
-    <form id="formRegistrarEstudiante">
-        <label for="cod">Código:</label>
-        <input type="text" id="cod" required><br>
-        
-        <label for="nombres">Nombre:</label>
-        <input type="text" id="nombres" required><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br>
-        
-        <button type="submit">Registrar Estudiante</button>
-    </form>
-
-    <h2>Actualizar Estudiante</h2>
-    <form id="formActualizarEstudiante" style="display: none;">
-        <input type="hidden" id="estudianteId" />
-        
-        <label for="codActualizar">Código:</label>
-        <input type="text" id="codActualizar" required disabled><br>
-        
-        <label for="nombresActualizar">Nombre:</label>
-        <input type="text" id="nombresActualizar" required><br>
-        
-        <label for="emailActualizar">Email:</label>
-        <input type="email" id="emailActualizar" required><br>
-        
-        <button type="submit">Actualizar Estudiante</button>
-    </form>
-
-    <h3>Resumen</h3>
-    <p>Aprobados: <span id="aprobadosCount">0</span></p>
-    <p>Reprobados: <span id="reprobadosCount">0</span></p>
-    <p>Sin Notas: <span id="sinNotasCount">0</span></p>
-
-    <h3>Filtros</h3>
+    <h1>Gestión de Estudiantes</h1>
+    
+    <!-- Filtro de Estudiantes -->
     <form id="formFiltros">
-        <label for="filtroCodigo">Código:</label>
-        <input type="text" id="filtroCodigo"><br>
-
-        <label for="filtroNombre">Nombre:</label>
-        <input type="text" id="filtroNombre"><br>
-
-        <label for="filtroEmail">Email:</label>
-        <input type="email" id="filtroEmail"><br>
-
-        <label for="filtroEstado">Estado:</label>
+        <input type="text" id="filtroCodigo" placeholder="Código">
+        <input type="text" id="filtroNombre" placeholder="Nombre">
+        <input type="email" id="filtroEmail" placeholder="Email">
         <select id="filtroEstado">
-            <option value="">Todos</option>
-            <option value="Aprobado">Aprobado</option>
-            <option value="Reprobado">Reprobado</option>
-            <option value="No hay nota">No hay nota</option>
-        </select><br>
-
-        <label for="filtroRangoNota">Rango de Nota:</label>
-        <input type="number" id="filtroRangoNotaMin" placeholder="Mínima" min="0" max="5" step="0.1">
-        <input type="number" id="filtroRangoNotaMax" placeholder="Máxima" min="0" max="5" step="0.1"><br>
-
-        <button type="submit">Buscar</button>
+            <option value="">Estado</option>
+            <option value="aprobado">Aprobado</option>
+            <option value="reprobado">Reprobado</option>
+            <option value="sin_notas">Sin Notas</option>
+        </select>
+        <input type="number" id="filtroNotaMin" placeholder="Nota mínima">
+        <input type="number" id="filtroNotaMax" placeholder="Nota máxima">
+        <button type="submit">Filtrar</button>
     </form>
 
-    <h1>Estudiantes</h1>
+    <!-- Resumen -->
+    <div>
+        <p id="resumen">Resumen de Estudiantes:</p>
+        <ul>
+            <li>Aprobados: <span id="aprobadosCount">0</span></li>
+            <li>Reprobados: <span id="reprobadosCount">0</span></li>
+            <li>Sin Notas: <span id="sinNotasCount">0</span></li>
+        </ul>
+    </div>
 
+    <!-- Tabla de Estudiantes -->
     <table id="tablaEstudiantes">
         <thead>
             <tr>
@@ -81,19 +47,19 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- Los estudiantes se llenarán aquí -->
-        </tbody>
+        <tbody></tbody>
     </table>
 
-    <h3>Notas del Estudiante</h3>
-    <div id="detalleEstudiante" style="display:none;">
-        <p><strong>Código:</strong> <span id="detalleCodigo"></span></p>
-        <p><strong>Nombre:</strong> <span id="detalleNombre"></span></p>
-        <p><strong>Email:</strong> <span id="detalleEmail"></span></p>
-        <p><strong>Estado:</strong> <span id="detalleEstado"></span></p>
-        <p><strong>Promedio:</strong> <span id="detallePromedio"></span></p>
-        <h4>Notas</h4>
+    <!-- Detalles del Estudiante -->
+    <div id="detalleEstudiante" style="display: none;">
+        <h2>Detalles del Estudiante</h2>
+        <p>Código: <span id="detalleCodigo"></span></p>
+        <p>Nombre: <span id="detalleNombre"></span></p>
+        <p>Email: <span id="detalleEmail"></span></p>
+        <p>Estado: <span id="detalleEstado"></span></p>
+        <p>Promedio: <span id="detallePromedio"></span></p>
+        
+        <!-- Tabla de Notas -->
         <table id="tablaNotas">
             <thead>
                 <tr>
@@ -102,37 +68,42 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Las notas del estudiante se llenarán aquí -->
-            </tbody>
+            <tbody></tbody>
         </table>
-
-        <h4>Registrar Nota</h4>
-        <form id="formRegistrarNota">
-            <label for="actividad">Actividad:</label>
-            <input type="text" id="actividad" required><br>
-
-            <label for="nota">Nota (0 - 5):</label>
-            <input type="number" id="nota" min="0" max="5" step="0.01" required><br>
-
-            <button type="submit">Registrar Nota</button>
-        </form>
     </div>
 
-    <form id="formModificarNota" style="display: none;">
-        <h3>Modificar Nota</h3>
-        <input type="hidden" id="idNota"> <!-- ID de la nota a modificar -->
-        <label for="actividadModificar">Actividad:</label>
-        <input type="text" id="actividadModificar" required>
-        <label for="notaModificar">Nota:</label>
-        <input type="number" id="notaModificar" min="0" max="5" step="0.01" required>
-        <button type="submit">Guardar Cambios</button>
-        <button type="button" onclick="cancelarEdicionNota()">Cancelar</button>
+    <!-- Formularios -->
+    <form id="formRegistrarEstudiante">
+        <h2>Registrar Estudiante</h2>
+        <input type="text" id="codigoRegistrar" placeholder="Código" required>
+        <input type="text" id="nombreRegistrar" placeholder="Nombre" required>
+        <input type="email" id="emailRegistrar" placeholder="Email" required>
+        <button type="submit">Registrar</button>
     </form>
-    <p id="notasBajo3">Notas por debajo de 3: 0</p>
-    <p id="notasMayores3">Notas mayores o iguales a 3: 0</p>
 
-    
+    <form id="formActualizarEstudiante" style="display: none;">
+        <h2>Actualizar Estudiante</h2>
+        <input type="text" id="codigoActualizar" disabled>
+        <input type="text" id="nombreActualizar" placeholder="Nombre" required>
+        <input type="email" id="emailActualizar" placeholder="Email" required>
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <form id="formRegistrarNota">
+        <h2>Registrar Nota</h2>
+        <input type="text" id="actividad" placeholder="Actividad" required>
+        <input type="number" id="nota" placeholder="Nota" required min="0" max="5">
+        <button type="submit">Registrar Nota</button>
+    </form>
+
+    <form id="formModificarNota" style="display: none;">
+        <h2>Modificar Nota</h2>
+        <input type="hidden" id="idNota">
+        <input type="text" id="actividadModificar" placeholder="Actividad" required>
+        <input type="number" id="notaModificar" placeholder="Nota" required min="0" max="5">
+        <button type="submit">Modificar Nota</button>
+    </form>
+
     <script src="script.js"></script>
 </body>
 </html>
